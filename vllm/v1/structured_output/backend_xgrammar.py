@@ -11,7 +11,7 @@ import vllm.envs
 from vllm.logger import init_logger
 from vllm.sampling_params import SamplingParams
 from vllm.tokenizers.deepseek_v32 import DeepseekV32Tokenizer
-from vllm.tokenizers.mistral import MistralTokenizer
+#from vllm.tokenizers.mistral import MistralTokenizer
 from vllm.utils.import_utils import LazyLoader
 from vllm.v1.structured_output.backend_types import (
     StructuredOutputBackend,
@@ -39,7 +39,7 @@ class XgrammarBackend(StructuredOutputBackend):
             self.vllm_config.structured_outputs_config.disable_any_whitespace
         )
 
-        if isinstance(self.tokenizer, MistralTokenizer):
+        if False and isinstance(self.tokenizer, MistralTokenizer):
             # NOTE: ideally, xgrammar should handle this accordingly.
             # refer to https://github.com/mlc-ai/xgrammar/blob/d77c0a0173ef14779c918e3be7966ba852f7910f/python/xgrammar/tokenizer_info.py#L98
             stop_token_ids = [self.tokenizer.eos_token_id]

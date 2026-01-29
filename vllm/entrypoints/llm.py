@@ -70,7 +70,7 @@ from vllm.pooling_params import PoolingParams
 from vllm.sampling_params import BeamSearchParams, RequestOutputKind, SamplingParams
 from vllm.tasks import PoolingTask
 from vllm.tokenizers import TokenizerLike
-from vllm.tokenizers.mistral import MistralTokenizer
+#from vllm.tokenizers.mistral import MistralTokenizer
 from vllm.usage.usage_lib import UsageContext
 from vllm.utils.collection_utils import as_iter, is_list_of
 from vllm.utils.counter import Counter
@@ -1253,7 +1253,7 @@ class LLM:
     ) -> list[ScoringRequestOutput]:
         model_config = self.model_config
 
-        if isinstance(tokenizer, MistralTokenizer):
+        if False and isinstance(tokenizer, MistralTokenizer):
             raise ValueError("Score API is not supported for Mistral tokenizer")
 
         if len(data_1) == 1:

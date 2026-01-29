@@ -32,7 +32,7 @@ from vllm.pooling_params import PoolingParams
 from vllm.renderers import RendererLike
 from vllm.sampling_params import _SAMPLING_EPS, SamplingParams
 from vllm.tokenizers import TokenizerLike
-from vllm.tokenizers.mistral import MistralTokenizer
+#from vllm.tokenizers.mistral import MistralTokenizer
 from vllm.utils import length_from_prompt_token_ids_or_embeds, random_uuid
 from vllm.utils.torch_utils import set_default_torch_num_threads
 from vllm.v1.engine import EngineCoreRequest
@@ -344,7 +344,7 @@ class InputProcessor:
             # allows <|special_token|> and similar, see
             # https://github.com/guidance-ai/llguidance/blob/main/docs/syntax.md#special-tokens
             # Without tokenizer these are disallowed in grammars.
-            if isinstance(self.tokenizer, MistralTokenizer):
+            if False and isinstance(self.tokenizer, MistralTokenizer):
                 raise ValueError(
                     "Mistral tokenizer is not supported for the 'guidance' "
                     "structured output backend. Please use ['xgrammar', 'outlines'] "
@@ -356,7 +356,7 @@ class InputProcessor:
             validate_structured_output_request_outlines(params)
         elif backend == "lm-format-enforcer":
             # lm format enforcer backend
-            if isinstance(self.tokenizer, MistralTokenizer):
+            if False and isinstance(self.tokenizer, MistralTokenizer):
                 raise ValueError(
                     "Mistral tokenizer is not supported for the 'lm-format-enforcer' "
                     "structured output backend. Please use ['xgrammar', 'outlines'] "
@@ -390,7 +390,7 @@ class InputProcessor:
                         schema = so_params.json
                     skip_guidance = has_guidance_unsupported_json_features(schema)
 
-                if isinstance(self.tokenizer, MistralTokenizer) or skip_guidance:
+                if (False and isinstance(self.tokenizer, MistralTokenizer)) or skip_guidance:
                     # Fall back to outlines if the tokenizer is Mistral
                     # or if schema contains features unsupported by guidance
                     validate_structured_output_request_outlines(params)
