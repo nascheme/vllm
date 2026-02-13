@@ -83,10 +83,10 @@ from vllm.renderers.inputs.preprocess import (
 from vllm.sampling_params import BeamSearchParams, RequestOutputKind, SamplingParams
 from vllm.tasks import PoolingTask
 from vllm.tokenizers import TokenizerLike
-from vllm.tokenizers.mistral import MistralTokenizer
 from vllm.usage.usage_lib import UsageContext
 from vllm.utils.collection_utils import as_iter, is_list_of
 from vllm.utils.counter import Counter
+from vllm.utils.mistral import is_mistral_tokenizer
 from vllm.v1.engine.llm_engine import LLMEngine
 from vllm.v1.sample.logits_processor import LogitsProcessor
 
@@ -869,7 +869,7 @@ class LLM:
                     add_generation_prompt=add_generation_prompt,
                     continue_final_message=continue_final_message,
                     tools=tools,
-                    tokenize=isinstance(renderer.tokenizer, MistralTokenizer),
+                    tokenize=is_mistral_tokenizer(renderer.tokenizer),
                 ),
             ),
         )
@@ -1420,7 +1420,7 @@ class LLM:
         model_config = self.model_config
         tokenizer = self.get_tokenizer()
 
-        if isinstance(tokenizer, MistralTokenizer):
+        if is_mistral_tokenizer(tokenizer):
             raise ValueError("Score API is not supported for Mistral tokenizer")
 
         if len(data_1) == 1:
